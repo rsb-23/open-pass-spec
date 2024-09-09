@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f4f4f9;
+      }
+      .signup-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 25%;
+      }
+      .signup-container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      form {
+        margin: 5px;
+      }
+      input {
+        width: 95%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .signup-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .signup-btn:hover {
+        background-color: #4cae4c;
+      }
+      .password-container {
+        width: 100%;
+        position: relative;
+        display: inline-block;
+      }
+      #password {
+        padding-right: 20px;
+      }
+
+      #toggle-password {
+        font-size: 20px;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        border: 2px black;
+        background: transparent;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-container">
+      <h2>Signup</h2>
+      <form>
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          value="test"
+          required
+        />
+        <div class="password-container">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="new-password"
+            required
+          />
+          <button id="toggle-password">👁️</button>
+        </div>
+
+        <button type="submit" class="signup-btn">Create Account</button>
+      </form>
+    </div>
+
+    <!-- Hidden div for password rules -->
+    <label>Password Rules (visible only in POC)</label>
+    <div id="pass-rule" data-pass-rule="8-16::LU2DS::#$%">8-16::LU2DS::#$%</div>
+    <script src="signup.js"></script>
+  </body>
+</html>
