@@ -4,89 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signup Page</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f4f4f9;
-      }
-      .signup-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 25%;
-      }
-      .signup-container h2 {
-        margin-bottom: 20px;
-        text-align: center;
-      }
-      form {
-        margin: 5px;
-      }
-      input {
-        width: 95%;
-        padding: 10px;
-        margin: 10px 0;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      .signup-btn {
-        width: 100%;
-        padding: 10px;
-        background-color: #5cb85c;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .signup-btn:hover {
-        background-color: #4cae4c;
-      }
-      .password-container {
-        width: 100%;
-        position: relative;
-        display: inline-block;
-      }
-      #password {
-        padding-right: 20px;
-      }
-
-      #toggle-password {
-        font-size: 20px;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        transform: translateY(-50%);
-        border: 2px black;
-        background: transparent;
-        cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="signup-container">
+    <div class="signup-container column">
       <h2>Signup</h2>
       <form>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          value="test"
-          required
-        />
+        <input type="text" id="username" placeholder="Username" value="test" required />
         <div class="password-container">
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            autocomplete="new-password"
-            required
-          />
+          <input type="password" id="password" placeholder="Password" autocomplete="new-password" required />
           <button id="toggle-password">👁️</button>
         </div>
 
@@ -95,8 +21,67 @@
     </div>
 
     <!-- Hidden div for password rules -->
-    <label>Password Rules (visible only in POC)</label>
-    <div id="pass-rule" data-pass-rule="8-16::LU2DS::#$%">8-16::LU2DS::#$%</div>
+    <div id="demo" class="column">
+      <h2>POC : Password Requirements</h2>
+      <div id="pass-rule" data-pass-rule="8-16::LU2DS::#$%"></div>
+      <input type="text" id="prule" value="" readonly />
+
+      <div class="form-group">
+        <label>Length Range : </label><span id="size-display"></span>
+        <div class="slider-container">
+          <div class="slider-track">
+            <div class="slider-track-inner"></div>
+          </div>
+          <input type="range" id="min-size" min="0" max="40" value="8" oninput="updateRange(this, 'min')" />
+          <input type="range" id="max-size" min="0" max="40" value="16" oninput="updateRange(this, 'max')" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Character Types:</label>
+        <div class="checkbox-group" onchange="updateRule('p2')">
+          <div class="char-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="L" name="lowercase" checked onchange="toggleInput(this, 'LCount')" />
+              <label for="L">L</label>
+            </div>
+            <input type="number" id="LCount" min="0" max="9" value="0" />
+          </div>
+          <div class="char-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="U" name="uppercase" onchange="toggleInput(this, 'UCount')" />
+              <label for="U">U</label>
+            </div>
+            <input type="number" id="UCount" min="0" max="9" value="0" disabled />
+          </div>
+          <div class="char-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="D" name="digits" onchange="toggleInput(this, 'DCount')" />
+              <label for="D">D</label>
+            </div>
+            <input type="number" id="DCount" min="0" max="9" value="0" disabled />
+          </div>
+          <div class="char-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="S" name="symbols" onchange="toggleInput(this, 'SCount')" />
+              <label for="symbols">S</label>
+            </div>
+            <input type="number" id="SCount" min="0" max="9" value="0" disabled />
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="special">Special Characters:</label>
+        <input
+          type="text"
+          id="special"
+          name="special"
+          placeholder="@#$%^&*"
+          value="@#$%^&*"
+          onchange="updateRule('p3')"
+        />
+      </div>
+    </div>
+
     <script src="signup.js"></script>
   </body>
 </html>
