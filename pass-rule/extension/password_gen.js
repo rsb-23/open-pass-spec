@@ -6,26 +6,20 @@ const ALLOWED_CHARS = {
   digits: "0123456789",
   symbols: ALL_SYMBOLS,
 };
-const REGEX_PASS_RULE = /^(\d{1,2})-(\d{1,3})::(([LUDS]\d{0,2}){1,4})::(.*)$/;
+// Order must match L, U, D, S. Each code is optional but, if present, must appear
+// in this fixed order and at most once — duplicates/out-of-order input simply won't match.
+// "i" flag replaces a separate rule.toUpperCase() call (one less string allocation per parse).
+const REGEX_PASS_RULE =
+  /^(\d{1,2})-(\d{1,3})::(?:L(\d{0,2}))?(?:U(\d{0,2}))?(?:D(\d{0,2}))?(?:S(\d{0,2}))?::(.*)$/;
 
 function validatePassRules(minLength, maxLength, charRule, symbols) {
   if (minLength > maxLength) {
     throw new Error("Minimum length cannot be greater than maximum length.");
   }
 
-  // Validate character rule
-  const charTypes = new Set(charRule.match(/[LUDS]/g) || []);
-  if (charTypes.size !== charRule.match(/[LUDS]/g)?.length) {
-    throw new Error(
-      "Each character type (L, U, D, S) should appear at most once in the rule."
-    );
-  }
-
   // Per spec: sum of all minimum counts (L#+U#+D#+S#) must not exceed maxLength.
-  const sumMins = (charRule.match(/\d+/g) || []).reduce(
-    (total, n) => total + parseInt(n, 10),
-    0
-  );
+  const {L, U, D, S} = charRule;
+  const sumMins = Math.max(L, 0) + Math.max(U, 0) + Math.max(D, 0) + Math.max(S, 0);
   if (sumMins > maxLength) {
     throw new Error(
       `Sum of minimum character counts (${sumMins}) exceeds maximum length (${maxLength}).`
@@ -50,24 +44,30 @@ function validatePassRules(minLength, maxLength, charRule, symbols) {
 
 function parsePassRule(rule) {
   rule = rule.toUpperCase();
-
   const matches = rule.match(REGEX_PASS_RULE);
 
   if (!matches) {
     throw new Error(
-      "Invalid rule format. Use MIN-MAX::L#U#D#S#::SYMBOLS"
+      "Invalid rule format. Use MIN-MAX::L#U#D#S#::SPECIAL_CHARS (codes must appear in L, U, D, S order, each at most once)"
     );
   }
   const minLength = parseInt(matches[1]);
   const maxLength = parseInt(matches[2]);
-  const charRule = matches[3];
-  const symbols = matches[5];
-  validatePassRules(minLength, maxLength, charRule, symbols);
+  const specialChars = matches[7];
 
-  const charRequirements = {L: -1, U: -1, D: -1, S: -1};
-  charRule.match(/[LUDS]\d{0,2}/g).forEach((req) => {
-    charRequirements[req[0]] = parseInt(req.slice(1)) || 0;
-  });
+  // matches[3..6] are the L, U, D, S digit captures: undefined = code absent,
+  // "" = code present with no minimum, "N" = code present with minimum N.
+  const toCount = (digits) =>
+    digits === undefined ? -1 : digits === "" ? 0 : parseInt(digits, 10);
+  const charRequirements = {
+    L: toCount(matches[3]),
+    U: toCount(matches[4]),
+    D: toCount(matches[5]),
+    S: toCount(matches[6]),
+  };
+
+  validatePassRules(minLength, maxLength, charRequirements, symbols);
+
   return {
     minLength: minLength,
     maxLength: maxLength,
