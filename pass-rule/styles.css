@@ -45,11 +45,6 @@ input[type="range"]:focus {
   display: flex;
   align-items: center;
 }
-.checkbox-group {
-  display: flex;
-  gap: 15px;
-  margin-top: 10px;
-}
 
 .checkbox-group {
   display: flex;

@@ -23,15 +23,33 @@ takes multiple tries or manual changes to generate a valid password for the site
 
 It can be solved by
 
-- adding a hidden div with password rules in the signup page.
-- tools can access div using `div[data-pass-rule]` selector.
+- adding a `data-pass-rule` attribute directly on the password `<input>` in the signup page.
+- tools can access it using the `input[data-pass-rule]` selector.
 - Rule is stored in a standard format, making it easy to parse and implement.
+
+```mermaid
+flowchart LR
+    subgraph before ["❌ Without a shared rule"]
+        direction TB
+        b1[Tool generates a password] --> b2{Site accepts it?}
+        b2 -- No --> b3[Manual edits / retries]
+        b3 --> b1
+        b2 -- Yes --> b4[Signup succeeds]
+    end
+
+    subgraph after ["✅ With data-pass-rule"]
+        direction TB
+        a1["Site sets data-pass-rule on the input<br/>e.g. 8-16::LU2S1::#$%"] --> a2[Tool reads the attribute]
+        a2 --> a3["Tool generates a password<br/>that already satisfies the rule"]
+        a3 --> a4[Signup succeeds on the first try]
+    end
+```
 
 [read in detail ...][passrule]
 
 ```html
 
-<div id="pass-rule" data-pass-rule="8-16::LU2DS::#$%"></div>
+<input type="password" data-pass-rule="8-16::LU2DS::#$%">
 ```
 
 ### Case 2 : Easy access to Account Settings

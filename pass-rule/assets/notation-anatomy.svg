@@ -1,0 +1,68 @@
+<svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" font-family="ui-sans-serif, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+  <style>
+    .mono { font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; font-weight: 600; }
+    .label-title { font-size: 15px; font-weight: 700; }
+    .label-body { font-size: 12.5px; }
+    .sep { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 26px; fill: #6b7280; }
+  </style>
+
+  <rect x="0" y="0" width="660" height="300" fill="#ffffff"/>
+
+  <!-- Segment boxes -->
+  <!-- Length rule -->
+  <rect x="30" y="46" width="120" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.6"/>
+  <text x="90" y="82" text-anchor="middle" class="mono" font-size="24" fill="#1d4ed8">8-16</text>
+
+  <text x="163" y="82" text-anchor="middle" class="sep">::</text>
+
+  <!-- Character rule -->
+  <rect x="196" y="46" width="160" height="56" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.6"/>
+  <text x="276" y="82" text-anchor="middle" class="mono" font-size="24" fill="#15803d">LU2S1</text>
+
+  <text x="369" y="82" text-anchor="middle" class="sep">::</text>
+
+  <!-- Symbols -->
+  <rect x="402" y="46" width="120" height="56" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="1.6"/>
+  <text x="462" y="82" text-anchor="middle" class="mono" font-size="24" fill="#c2410c">#$%</text>
+
+  <!-- Leader lines -->
+  <path d="M90,102 V128 H90" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M276,102 V128 H276" stroke="#16a34a" stroke-width="1.5" fill="none"/>
+  <path d="M462,102 V128 H462" stroke="#ea580c" stroke-width="1.5" fill="none"/>
+  <circle cx="90" cy="128" r="3" fill="#2563eb"/>
+  <circle cx="276" cy="128" r="3" fill="#16a34a"/>
+  <circle cx="462" cy="128" r="3" fill="#ea580c"/>
+
+  <!-- Column 1: Length rule -->
+  <g transform="translate(20,144)">
+    <text x="0" y="0" class="label-title" fill="#1d4ed8">Length rule</text>
+    <text x="0" y="22" class="label-body" fill="#374151">Min–Max password</text>
+    <text x="0" y="40" class="label-body" fill="#374151">length, inclusive.</text>
+  </g>
+
+  <!-- Column 2: Character rule -->
+  <g transform="translate(196,144)">
+    <text x="0" y="0" class="label-title" fill="#15803d">Character rule</text>
+    <text x="0" y="22" class="label-body" fill="#374151">L/U/D/S = lower, upper,</text>
+    <text x="0" y="40" class="label-body" fill="#374151">digit, symbol. A missing</text>
+    <text x="0" y="58" class="label-body" fill="#374151">code = not allowed. A</text>
+    <text x="0" y="76" class="label-body" fill="#374151">number = minimum count.</text>
+  </g>
+
+  <!-- Column 3: Symbols -->
+  <g transform="translate(402,144)">
+    <text x="0" y="0" class="label-title" fill="#c2410c">Allowed symbols</text>
+    <text x="0" y="22" class="label-body" fill="#374151">Which symbols may</text>
+    <text x="0" y="40" class="label-body" fill="#374151">be used. Blank = all</text>
+    <text x="0" y="58" class="label-body" fill="#374151">symbols allowed.</text>
+  </g>
+
+  <!-- Decoded example -->
+  <g transform="translate(30,246)">
+    <rect x="0" y="0" width="600" height="42" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+    <text x="14" y="26" font-size="12.5" fill="#4b5563">
+      <tspan class="mono" fill="#111827">8-16::LU2S1::#$%</tspan><tspan> → 8–16 chars, ≥2 uppercase, ≥1 symbols (only
+      #, $, or %), lowercase optional, no digits</tspan>
+    </text>
+  </g>
+</svg>

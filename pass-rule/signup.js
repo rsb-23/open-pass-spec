@@ -49,16 +49,15 @@ function removeDuplicate(str) {
 }
 
 function updateRule(part) {
-  passrule = document.getElementById("pass-rule");
   if (part == "p1" || part == "all") {
     rule[0] = document.getElementById("size-display").textContent;
   }
   if (part == "p2" || part == "all") {
-    charRule = [];
+    const charRule = [];
     for (const ch of "LUDS") {
       if (document.getElementById(ch).checked) {
         charRule.push(ch);
-        chCount = document.getElementById(`${ch}Count`).value;
+        const chCount = document.getElementById(`${ch}Count`).value;
         if (chCount > 0) {
           charRule.push(chCount);
         }
@@ -67,13 +66,14 @@ function updateRule(part) {
     rule[1] = charRule.join("");
   }
   if (part == "p3" || part == "all") {
-    special = document.getElementById("special");
-    rule[2] = removeDuplicate(special.value);
-    special.value = rule[2];
+    const symbols = document.getElementById("symbols");
+    rule[2] = removeDuplicate(symbols.value);
+    symbols.value = rule[2];
   }
-  var rule_ = rule.join("::");
-  // passrule.textContent = `Password Rule = ${rule_}`;
+  const rule_ = rule.join("::");
   document.getElementById("prule").value = rule_;
+  // Write the built rule back onto the input tools actually read, per PassRule.md.
+  passwordField.setAttribute("data-pass-rule", rule_);
 }
 
 // Initialize the range display

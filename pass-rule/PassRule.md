@@ -2,25 +2,27 @@
 
 ## Password Rules
 
-**Notation:** `Min-Max::L#U#D#S#::SpecialChars`  
+**Notation:** `Min-Max::L#U#D#S#::Symbols`  
 **Default value:** `8-16::L1U1D1S::`  
-**All special characters:** `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~`
+**All Symbols:** ```!`"#$%&'()*+,-./:;<=>?@[\]^_{|}~```
 
-The rule consists of three parts — length rule, character rule, and allowed special characters — separated by `::`.
+![Anatomy of a PassRule notation string, broken into the length rule, character rule, and allowed symbols segments](./assets/notation-anatomy.svg)
+
+The rule consists of three parts — length rule, character rule, and allowed symbols — separated by `::`.
 These are the mandatory requirements for a password generator.
 
-| Part                       | Description                                                                                                                 | Example |
-|----------------------------|-----------------------------------------------------------------------------------------------------------------------------|---------|
-| Length rule                | Specifies the min and max length for a valid password.                                                                      | `8-16`  |
-| Character rule             | Specifies the allowed character sets and the number (`#`) of mandatory characters from each set.                            | `LU2S1` |
-| Allowed special characters | Specifies which special characters are allowed in the password. All special characters are allowed when this part is blank. | `#$%`   |
+| Part            | Description                                                                                           | Example |
+|-----------------|-------------------------------------------------------------------------------------------------------|---------|
+| Length rule     | Specifies the min and max length for a valid password.                                                | `8-16`  |
+| Character rule  | Specifies the allowed character sets and the number (`#`) of mandatory characters from each set.      | `LU2S1` |
+| Allowed symbols | Specifies which symbols are allowed in the password. All symbols are allowed when this part is blank. | `#$%`   |
 
 So `8-16::LU2S1::#$%` denotes a password that:
 
 - is between 8 and 16 characters long (inclusive)
-- can contain lowercase, uppercase, and special characters, but not digits
-- must have at least 2 uppercase and 1 special character; it may or may not have lowercase characters
-- may only use `#`, `$`, or `%` as special characters
+- can contain lowercase, uppercase, and symbols, but not digits
+- must have at least 2 uppercase and 1 symbol; it may or may not have lowercase characters
+- may only use `#`, `$`, or `%` as symbols
 
 ### Character rule details
 
