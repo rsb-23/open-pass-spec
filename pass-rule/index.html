@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div class="signup-container column">
+    <h2>Signup</h2>
+    <form>
+        <input type="text" id="username" placeholder="Username" value="test" required/>
+        <div class="password-container">
+            <input type="password" id="password" placeholder="Password" autocomplete="new-password" required
+                   data-pass-rule="8-16::LU2DS::#$%"/>
+            <button id="toggle-password">👁️</button>
+        </div>
+
+        <button type="submit" class="signup-btn">Create Account</button>
+    </form>
+</div>
+
+<div id="demo" class="column">
+    <h2>POC : Password Requirements</h2>
+    <!-- Live, human-readable echo of the data-pass-rule attribute on #password -->
+    <input type="text" id="prule" value="" readonly/>
+
+    <div class="form-group">
+        <label>Length Range : </label><span id="size-display"></span>
+        <div class="slider-container">
+            <div class="slider-track">
+                <div class="slider-track-inner"></div>
+            </div>
+            <input type="range" id="min-size" min="0" max="40" value="8" oninput="updateRange(this, 'min')"/>
+            <input type="range" id="max-size" min="0" max="40" value="16" oninput="updateRange(this, 'max')"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Character Types:</label>
+        <div class="checkbox-group" onchange="updateRule('p2')">
+            <div class="char-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="L" name="lowercase" checked onchange="toggleInput(this, 'LCount')"/>
+                    <label for="L">Lower</label>
+                </div>
+                <input type="number" id="LCount" min="0" max="9" value="0"/>
+            </div>
+            <div class="char-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="U" name="uppercase" onchange="toggleInput(this, 'UCount')"/>
+                    <label for="U">Upper</label>
+                </div>
+                <input type="number" id="UCount" min="0" max="9" value="0" disabled/>
+            </div>
+            <div class="char-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="D" name="digits" onchange="toggleInput(this, 'DCount')"/>
+                    <label for="D">Digits</label>
+                </div>
+                <input type="number" id="DCount" min="0" max="9" value="0" disabled/>
+            </div>
+            <div class="char-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="S" name="symbols" onchange="toggleInput(this, 'SCount')"/>
+                    <label for="S">Symbols</label>
+                </div>
+                <input type="number" id="SCount" min="0" max="9" value="0" disabled/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="symbols">Symbols:</label>
+        <input
+            type="text"
+            id="symbols"
+            name="symbols"
+            placeholder="@#$%^&*"
+            value="@#$%^&*"
+            onchange="updateRule('p3')"
+        />
+    </div>
+</div>
+
+<script src="signup.js"></script>
+</body>
+</html>
